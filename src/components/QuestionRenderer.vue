@@ -1,12 +1,14 @@
 <template>
-    <td>
-        <katex-element :expression="question" />
+    <td class="left">
+        <li>
+            <katex-element display-mode :expression="question" />
+        </li>
     </td>
     <td v-if="isAnswerVisible">
-        <katex-element :expression="answer" />
+        <katex-element display-mode :expression="answer" />
     </td>
-    <td v-else>
-        -
+    <td v-else class="right">
+        &mdash;
     </td>
 </template>
 
@@ -21,6 +23,7 @@ import { pickRandomCommonAngle } from "../question-generator";
         isAnswerVisible: Boolean,
         question: String,
         answer: String,
+        index: Number,
     },
     components: {
         MathJax
@@ -32,3 +35,13 @@ export default class QuestionRenderer extends Vue {
     answer!: string;
 }
 </script>
+
+<style scoped>
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+</style>

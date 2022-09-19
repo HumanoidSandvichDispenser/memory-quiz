@@ -1,20 +1,24 @@
 <template>
-    <h1>Time left: {{ timeLeftFormatted }}</h1>
-    <table>
-        <tr>
-            <td>QUAESTIO</td>
-            <td>RESPONSVM</td>
-        </tr>
-        <tr v-for="question in questions">
-            <question-renderer :question="question.question"
-                               :answer="question.answer"
-                               :isAnswerVisible="!isRunning" />
-        </tr>
-    </table>
-    <button @click="startQuiz">{{ isRunning ? "Stop" : "Start" }}</button>
+    <div class="left-column">
+        <h3>Time left: {{ timeLeftFormatted }}</h3>
+        <button @click="startQuiz">{{ isRunning ? "Stop" : "Start" }}</button>
+    </div>
+    <div>
+        <ol>
+            <table>
+                <tr v-for="question, i in questions" :key="i">
+                    <question-renderer :question="question.question"
+                                    :answer="question.answer"
+                                    :isAnswerVisible="!isRunning"
+                                    :index="i" />
+                </tr>
+            </table>
+        </ol>
+    </div>
 </template>
 
 <script lang="ts">
+import nerdamer from "nerdamer";
 import { Options, Vue } from "vue-class-component";
 import QuestionRenderer from "./components/QuestionRenderer.vue";
 import Question from "./question";
@@ -42,6 +46,11 @@ export default class App extends Vue {
     }
 
     mounted(): void {
+        let exp = nerdamer.convertFromLaTeX("\\sin(m x)\cdot m");
+        console.log(exp.sub("m", "2").toTeX());
+        for (let i = 0; i < 10; i++) {
+            this.questions.push(new Question(`\\textrm{Question } ${i + 1}`, ""));
+        }
     }
 
     stopQuiz(): void {
@@ -77,11 +86,14 @@ export default class App extends Vue {
 
 <style>
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    display: flex;
+}
+
+#app > div {
+    padding: 16px;
+}
+
+.left-column {
+    width: 256px;
 }
 </style>
