@@ -39,6 +39,7 @@ export default class QuestionRenderer extends Vue {
 <style scoped>
 .left {
     text-align: left;
+    padding-right: 32px;
 }
 
 .right {
