@@ -135,12 +135,12 @@ const derivatives: {[key: string]: string} = {
 }
 
 const derivativeTheory: {[key: string]: string} = {
-    "\\textrm{If} f'(x) > 0, f(x) \\textrm{is}": "\\textrm{increasing}",
-    "\\textrm{If} f'(x) < 0, f(x) \\textrm{is}": "\\textrm{decreasing}",
-    "\\textrm{If} f''(x) > 0, f(x) \\textrm{is}": "\\textrm{concave up}",
-    "\\textrm{If} f''(x) < 0, f(x) \\textrm{is}": "\\textrm{concave down}",
-    "\\textrm{If} f'(x)f''(x) < 0, \\textrm": "\\textrm{concave down}",
-    "\\textrm{If} f'(x) \\cdot f''(x) < 0, f(x) \\textrm{is}": "\\textrm{slowing down}"
+    "\\textrm{If } f'(x) > 0, f(x) \\textrm{ is}": "\\textrm{increasing}",
+    "\\textrm{If } f'(x) < 0, f(x) \\textrm{ is}": "\\textrm{decreasing}",
+    "\\textrm{If } f''(x) > 0, f(x) \\textrm{ is}": "\\textrm{concave up}",
+    "\\textrm{If } f''(x) < 0, f(x) \\textrm{ is}": "\\textrm{concave down}",
+    //"\\textrm{If } f'(x)f''(x) < 0, \\textrm"{ }: "\\textrm{concave down}",
+    "\\textrm{If } f'(x) \\cdot f''(x) < 0, f(x) \\textrm{is}": "\\textrm{slowing down}"
 }
 
 const geometry: {[key: string]: string} = {
@@ -149,7 +149,8 @@ const geometry: {[key: string]: string} = {
     "V_\\textrm{cylinder}": "\\pi r^2 h",
     "SA_\\textrm{cylinder}": "2\\pi r h + 2\\pi r^2",
     "V_\\textrm{sphere}": "\\frac{4}{3} \\pi r^3",
-    "SA_\\textrm{sphere}": "\\frac{4} \\pi r^2",
+    "SA_\\textrm{sphere}": "4 \\pi r^2",
+    "A_\\textrm{trapezoid}": "\\frac{b_1 + b_2}{2} \\cdot h"
 }
 
 const physics: {[key: string]: string} = {
@@ -236,7 +237,7 @@ function pickRandomDerivative(): Question {
     return new Question(`\\frac{d}{dx} ${fn}`, derivatives[fn]);
 }
 
-function pickRandomDerivativeTheory(): Question {
+function pickRandomGraphAnalysis(): Question {
     let theory = Utils.pickFromArray(Object.keys(derivativeTheory));
     return new Question(theory, derivativeTheory[theory]);
 }
@@ -251,14 +252,33 @@ function pickRandomPhysics(): Question {
     return new Question(fn, physics[fn]);
 }
 
-export function pickRandomQuestion(): Question {
-    let questions = [
-        pickRandomTrigQuestion,
-        pickRandomInverseTrigQuestion,
-        pickRandomLimit,
-        pickRandomDerivative,
-        pickRandomDerivativeTheory,
-        pickRandomPhysics
-    ]
-    return Utils.pickFromArray(questions)();
+export function pickRandomQuestion(categories: {[key: string]: any}): Question {
+    /*
+    let questions = {
+        pickRandomTrigQuestion: enabledQuestion[0],
+        pickRandomInverseTrigQuestion: enabledQuestion[1],
+        pickRandomLimit: enabledQuestion[2],
+        pickRandomDerivative: enabledQuestion[3],
+        pickRandomGraphAnalysis: enabledQuestion[4],
+        pickRandomPhysics: enabledQuestion[5],
+        pickRandomGeometry: enabledQuestion[6],
+    }
+    */
+    let questionFunctions = Object.keys(categories)
+        .filter(category => categories[category].enabled)
+        .map(category => categories[category].fn);
+    //Object.keys(questions).filter(key => questions[key]);
+    return Utils.pickFromArray(questionFunctions)();
 }
+
+const QuestionGenerator = {
+    pickRandomTrigQuestion,
+    pickRandomInverseTrigQuestion,
+    pickRandomLimit,
+    pickRandomDerivative,
+    pickRandomGraphAnalysis,
+    pickRandomGeometry,
+    pickRandomPhysics
+};
+
+export default QuestionGenerator;

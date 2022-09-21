@@ -2,6 +2,39 @@
     <div class="left-column">
         <h3>Time left: {{ timeLeftFormatted }}</h3>
         <button @click="startQuiz">{{ isRunning ? "Stop" : "Start" }}</button>
+        <h4>Settings</h4>
+        <div>
+            <input type="checkbox" v-model="categories.trig.enabled">
+            <label for="checkbox">Trigonometry</label>
+        </div>
+        <div>
+            <input type="checkbox" v-model="categories.inverseTrig.enabled">
+            <label for="checkbox">Inverse Trigonometry</label>
+        </div>
+        <div>
+            <input type="checkbox" v-model="categories.limits.enabled">
+            <label for="checkbox">Limits</label>
+        </div>
+        <div>
+            <input type="checkbox" v-model="categories.derivatives.enabled">
+            <label for="checkbox">Derivatives</label>
+        </div>
+        <div>
+            <input type="checkbox" v-model="categories.graphAnalysis.enabled">
+            <label for="checkbox">Graph Analysis</label>
+        </div>
+        <div>
+            <input type="checkbox" v-model="categories.geometry.enabled">
+            <label for="checkbox">Geometry</label>
+        </div>
+        <div>
+            <input type="checkbox" v-model="categories.physics.enabled">
+            <label for="checkbox">Physics</label>
+        </div>
+        <div>
+            <label for="checkbox">Time: {{ quizDuration }} seconds </label>
+            <input type="range" min="60" max="240" step="5" v-model="quizDuration">
+        </div>
     </div>
     <div>
         <ol>
@@ -22,20 +55,52 @@ import nerdamer from 'nerdamer'
 import 'nerdamer/Algebra.js'
 import 'nerdamer/Calculus.js'
 import 'nerdamer/Solve.js'
+//import VueSlider from "vue-slider-component";
 import { Options, Vue } from "vue-class-component";
 import QuestionRenderer from "./components/QuestionRenderer.vue";
 import Question from "./question";
-import { pickRandomQuestion } from "./question-generator";
+import QuestionGenerator, { pickRandomQuestion } from "./question-generator";
+import "./question-generator";
 
 @Options({
     components: {
-        QuestionRenderer
+        QuestionRenderer,
     },
 })
 export default class App extends Vue {
     private interval: number = NaN;
     private timeLeft: number = 0;
     private questions: Question[] = [];
+    private categories = {
+        trig: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomTrigQuestion
+        },
+        inverseTrig: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomInverseTrigQuestion
+        },
+        limits: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomLimit
+        },
+        derivatives: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomDerivative
+        },
+        graphAnalysis: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomGraphAnalysis
+        },
+        physics: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomPhysics
+        },
+        geometry: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomGeometry
+        }
+    };
     public quizDuration: number = 120;
 
     public get isRunning(): boolean {
@@ -73,7 +138,7 @@ export default class App extends Vue {
     pickQuestions() {
         this.questions.splice(0, this.questions.length);
         for (let i = 0; i < 10; i++) {
-            this.questions.push(pickRandomQuestion());
+            this.questions.push(pickRandomQuestion(this.categories));
         }
     }
 
