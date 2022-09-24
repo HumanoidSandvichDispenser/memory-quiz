@@ -12,6 +12,10 @@
             <label for="checkbox">Inverse Trigonometry</label>
         </div>
         <div>
+            <input type="checkbox" v-model="categories.trigIdentities.enabled">
+            <label for="checkbox">Trigonometric Identities</label>
+        </div>
+        <div>
             <input type="checkbox" v-model="categories.limits.enabled">
             <label for="checkbox">Limits</label>
         </div>
@@ -79,6 +83,10 @@ export default class App extends Vue {
         inverseTrig: {
             enabled: true,
             fn: QuestionGenerator.pickRandomInverseTrigQuestion
+        },
+        trigIdentities: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomTrigIdentity,
         },
         limits: {
             enabled: true,

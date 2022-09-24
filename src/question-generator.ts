@@ -162,6 +162,23 @@ const physics: {[key: string]: string} = {
     "\\int \\int a(t) dt^2": "s(t)",
 }
 
+const identities: {[key: string]: string} = {
+    "\\tan(x)": "\\frac{\\sin(x)}{\\cos(x)}",
+    "\\cot(x)": "\\frac{\\cos(x)}{\\sin(x)}",
+    "\\sin^2(x) + \\cos^2(x)": "1",
+    "\\sec^2(x)": "\\tan^2(x) + 1",
+    "\\csc^2(x)": "\\cot^2(x) + 1",
+    "\\tan^2(x) + 1": "\\sec^2(x)",
+    "\\cot^2(x) + 1": "\\csc^2(x)",
+    "\\sin(a + b)": "\\sin a \\cos b + \\cos a \\sin b",
+    "\\sin(a - b)": "\\sin a \\cos b - \\cos a \\sin b",
+    "\\cos(a + b)": "\\cos a \\cos b - \\sin a \\sin b",
+    "\\cos(a - b)": "\\cos a \\cos b + \\sin a \\sin b",
+    "\\sin(2x)": "2\\sin x \\cos x",
+    "\\cos^2(x) - \\sin^2(x)": "\\cos(2x)",
+    "\\2cos^2(x) - 1": "\\cos(2x)",
+    "1 - 2\\sin^2(x)": "\\cos(2x)",
+};
 /*
 
     "\\lim_{x \\to 0} \frac{\\sin(mx)}{nx}": "\\frac{m}{n}",
@@ -215,6 +232,12 @@ function pickRandomInverseTrigQuestion(): Question {
         output = nerdamer.convertFromLaTeX(tex);
     }
     return new Question(`\\${fn}^{-1}(${output.toTeX()})`, angle);
+}
+
+function pickRandomTrigIdentity(): Question {
+    let identity = Utils.pickFromArray(Object.keys(identities));
+    let answer = identities[identity];
+    return new Question(identity, answer);
 }
 
 function pickRandomLimit(): Question {
@@ -274,6 +297,7 @@ export function pickRandomQuestion(categories: {[key: string]: any}): Question {
 const QuestionGenerator = {
     pickRandomTrigQuestion,
     pickRandomInverseTrigQuestion,
+    pickRandomTrigIdentity,
     pickRandomLimit,
     pickRandomDerivative,
     pickRandomGraphAnalysis,
