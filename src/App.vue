@@ -122,14 +122,6 @@ export default class App extends Vue {
     }
 
     mounted(): void {
-        var x = nerdamer('diff(n^x, x)');
-        console.log(x.toString());
-        var y = nerdamer('diff([x^2, cos(x), 1], x, 2)'); //second derivative
-        console.log(y.toString());
-        var y = nerdamer('diff(x^3+a*x^3+x^2, x, 2)'); //second derivative
-        console.log(y.toString());
-        x = nerdamer.diff(nerdamer('x^2').add(1).multiply('tan(x)'), 'x')
-        console.log(x.toString())
         for (let i = 0; i < 10; i++) {
             this.questions.push(new Question(`\\textrm{Question } ${i + 1}`, ""));
         }
