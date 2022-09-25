@@ -40,8 +40,8 @@
             <input type="range" min="60" max="240" step="5" v-model="quizDuration">
         </div>
         <div>
-            <input type="checkbox" v-model="isTextboxEnabled">
-            <label for="checkbox">Enable text input</label>
+            <input type="checkbox" v-model="isTextboxEnabled" disabled>
+            <label for="checkbox">Enable text input (testing only)</label>
         </div>
     </div>
     <div>
