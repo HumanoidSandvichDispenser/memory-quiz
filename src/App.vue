@@ -43,6 +43,10 @@
             <label for="checkbox">Time: {{ quizDuration }} seconds </label>
             <input type="range" min="60" max="240" step="5" v-model="quizDuration">
         </div>
+        <div>
+            <input type="checkbox" v-model="isTextboxEnabled" disabled>
+            <label for="checkbox">Enable text input (testing only)</label>
+        </div>
     </div>
     <div>
         <ol>
@@ -50,8 +54,9 @@
                 <tr v-for="question, i in questions" :key="i">
                     <question-renderer :question="question.question"
                                     :answer="question.answer"
-                                    :isAnswerVisible="!isRunning"
-                                    :index="i" />
+                                    :is-answer-visible="!isRunning"
+                                    :index="i"
+                                    :is-textbox-enabled="isTextboxEnabled" />
                 </tr>
             </table>
         </ol>
@@ -79,6 +84,7 @@ export default class App extends Vue {
     private interval: number = NaN;
     private timeLeft: number = 0;
     private questions: Question[] = [];
+    private isTextboxEnabled: boolean = false;
     private categories = {
         trig: {
             enabled: true,
@@ -130,14 +136,6 @@ export default class App extends Vue {
     }
 
     mounted(): void {
-        var x = nerdamer('diff(n^x, x)');
-        console.log(x.toString());
-        var y = nerdamer('diff([x^2, cos(x), 1], x, 2)'); //second derivative
-        console.log(y.toString());
-        var y = nerdamer('diff(x^3+a*x^3+x^2, x, 2)'); //second derivative
-        console.log(y.toString());
-        x = nerdamer.diff(nerdamer('x^2').add(1).multiply('tan(x)'), 'x')
-        console.log(x.toString())
         for (let i = 0; i < 10; i++) {
             this.questions.push(new Question(`\\textrm{Question } ${i + 1}`, ""));
         }
@@ -185,5 +183,31 @@ export default class App extends Vue {
 
 .left-column {
     width: 256px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
 </style>

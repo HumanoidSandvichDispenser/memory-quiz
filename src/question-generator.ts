@@ -166,8 +166,6 @@ const physics: {[key: string]: string} = {
 }
 
 const identities: {[key: string]: string} = {
-    "\\tan(x)": "\\frac{\\sin(x)}{\\cos(x)}",
-    "\\cot(x)": "\\frac{\\cos(x)}{\\sin(x)}",
     "\\sin^2(x) + \\cos^2(x)": "1",
     "\\sec^2(x)": "\\tan^2(x) + 1",
     "\\csc^2(x)": "\\cot^2(x) + 1",
@@ -179,7 +177,7 @@ const identities: {[key: string]: string} = {
     "\\cos(a - b)": "\\cos a \\cos b + \\sin a \\sin b",
     "\\sin(2x)": "2\\sin x \\cos x",
     "\\cos^2(x) - \\sin^2(x)": "\\cos(2x)",
-    "\\2cos^2(x) - 1": "\\cos(2x)",
+    "2\\cos^2(x) - 1": "\\cos(2x)",
     "1 - 2\\sin^2(x)": "\\cos(2x)",
     "\\tan(2x)": "\\frac{2 \\tan x}{1 - \\tan^2 x}"
 };
