@@ -17,6 +17,7 @@ interface Limit {
 
 const trigFunctions = [ "sin", "cos", "tan", "csc", "sec", "cot" ];
 
+// this is used for inverse trig functions
 const trigDomain: { [key: string]: string[] } = {
     "sin": [
         "0",
@@ -71,9 +72,11 @@ const trigDomain: { [key: string]: string[] } = {
         "\\frac{\\pi}{6}",
         "\\frac{\\pi}{4}",
         "\\frac{\\pi}{3}",
-        "-\\frac{\\pi}{6}",
-        "-\\frac{\\pi}{4}",
-        "-\\frac{\\pi}{3}",
+        "\\frac{\\pi}{2}",
+        "\\frac{2\\pi}{3}",
+        "\\frac{3\\pi}{4}",
+        "\\frac{5\\pi}{6}",
+        "\\pi",
     ]
 }
 
@@ -178,7 +181,18 @@ const identities: {[key: string]: string} = {
     "\\cos^2(x) - \\sin^2(x)": "\\cos(2x)",
     "\\2cos^2(x) - 1": "\\cos(2x)",
     "1 - 2\\sin^2(x)": "\\cos(2x)",
+    "\\tan(2x)": "\\frac{2 \\tan x}{1 - \\tan^2 x}"
 };
+
+const integrationRules: {[key: string]: string} = {
+    "\\int x^n dx": "\\frac{x^{n + 1}}{n + 1}",
+    "\\int (f(x) + g(x))dx": "\\int f(x)dx + \\int g(x)dx",
+    "\\int_a^b f(x)dx + \\int_b^c f(x)dx": "\\int_a^c f(x)dx",
+    "F(b) - F(a)": "\\int_a^b f(x)dx",
+    "\\frac{d}{dx} \\int_a^x f(t)dt": "f(x)",
+    "\\textrm{Average value of } f(x)": "\\frac{1}{b - a} \\int_a^b f(x)dx"
+}
+
 /*
 
     "\\lim_{x \\to 0} \frac{\\sin(mx)}{nx}": "\\frac{m}{n}",
@@ -275,6 +289,11 @@ function pickRandomPhysics(): Question {
     return new Question(fn, physics[fn]);
 }
 
+function pickRandomIntegrationRule(): Question {
+    let fn = Utils.pickFromArray(Object.keys(integrationRules));
+    return new Question(fn, integrationRules[fn]);
+}
+
 export function pickRandomQuestion(categories: {[key: string]: any}): Question {
     /*
     let questions = {
@@ -302,7 +321,8 @@ const QuestionGenerator = {
     pickRandomDerivative,
     pickRandomGraphAnalysis,
     pickRandomGeometry,
-    pickRandomPhysics
+    pickRandomPhysics,
+    pickRandomIntegrationRule
 };
 
 export default QuestionGenerator;

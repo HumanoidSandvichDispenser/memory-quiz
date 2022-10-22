@@ -36,6 +36,10 @@
             <label for="checkbox">Physics</label>
         </div>
         <div>
+            <input type="checkbox" v-model="categories.integrationRules.enabled">
+            <label for="checkbox">Integration Rules</label>
+        </div>
+        <div>
             <label for="checkbox">Time: {{ quizDuration }} seconds </label>
             <input type="range" min="60" max="240" step="5" v-model="quizDuration">
         </div>
@@ -107,6 +111,10 @@ export default class App extends Vue {
         geometry: {
             enabled: true,
             fn: QuestionGenerator.pickRandomGeometry
+        },
+        integrationRules: {
+            enabled: true,
+            fn: QuestionGenerator.pickRandomIntegrationRule
         }
     };
     public quizDuration: number = 120;
