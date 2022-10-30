@@ -56,9 +56,11 @@ const trigDomain: { [key: string]: string[] } = {
         "\\frac{\\pi}{6}",
         "\\frac{\\pi}{4}",
         "\\frac{\\pi}{3}",
-        "-\\frac{\\pi}{6}",
-        "-\\frac{\\pi}{4}",
-        "-\\frac{\\pi}{3}",
+        "\\frac{\\pi}{2}",
+        "\\frac{2\\pi}{3}",
+        "\\frac{3\\pi}{4}",
+        "\\frac{5\\pi}{6}",
+        "\\pi",
     ],
     "tan": [
         "\\frac{\\pi}{6}",
@@ -188,7 +190,9 @@ const integrationRules: {[key: string]: string} = {
     "\\int_a^b f(x)dx + \\int_b^c f(x)dx": "\\int_a^c f(x)dx",
     "F(b) - F(a)": "\\int_a^b f(x)dx",
     "\\frac{d}{dx} \\int_a^x f(t)dt": "f(x)",
-    "\\textrm{Average value of } f(x)": "\\frac{1}{b - a} \\int_a^b f(x)dx"
+    "\\textrm{Average value of } f(x)": "\\frac{1}{b - a} \\int_a^b f(x)dx",
+    "F(x) + c": "\\int f(x)dx",
+    "\\int x^{-1} dx": "\\ln|x|"
 }
 
 /*

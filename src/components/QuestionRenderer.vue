@@ -7,13 +7,13 @@
     <td v-if="isAnswerVisible">
         <katex-element display-mode :expression="answer" />
     </td>
-    <td v-else class="right">
+    <!--td v-else class="right">
         &mdash; {{ mathFieldTeX }}
-    </td>
+    </td-->
     <td v-if="isTextboxEnabled">
         <!--vue-tiptap-katex v-model="text" /-->
         <math-field class="mathField" keypress-sound="null" plonk-sound="null" ref="mathField"
-                    @input="handleInput" placeholder="test">test</math-field>
+                    @input="handleInput" placeholder="test">\textrm{Ctrl + A}</math-field>
     </td>
 </template>
 
@@ -54,8 +54,9 @@ export default class QuestionRenderer extends Vue {
     }
 
     public get mathFieldTeX(): string {
-        //return this.mathField.getValue("latex");
-        return (this.$refs["mathField"] as MathfieldElement).getValue("latex");
+        return this.mathField.getValue("latex");
+        //return (this.$refs["mathField"] as MathfieldElement).getValue("latex");
+        //return "";
     }
 }
 </script>

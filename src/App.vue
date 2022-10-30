@@ -44,8 +44,8 @@
             <input type="range" min="60" max="240" step="5" v-model="quizDuration">
         </div>
         <div>
-            <input type="checkbox" v-model="isTextboxEnabled" disabled>
-            <label for="checkbox">Enable text input (testing only)</label>
+            <input type="checkbox" v-model="isTextboxEnabled">
+            <label for="checkbox">Enable text input (testing)</label>
         </div>
     </div>
     <div>
@@ -55,8 +55,8 @@
                     <question-renderer :question="question.question"
                                     :answer="question.answer"
                                     :is-answer-visible="!isRunning"
-                                    :index="i"
-                                    :is-textbox-enabled="isTextboxEnabled" />
+                                    :is-textbox-enabled="isTextboxEnabled"
+                                    :index="i" />
                 </tr>
             </table>
         </ol>
