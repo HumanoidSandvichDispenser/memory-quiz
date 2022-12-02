@@ -191,8 +191,8 @@ const integrationRules: {[key: string]: string} = {
     "F(b) - F(a)": "\\int_a^b f(x)dx",
     "\\frac{d}{dx} \\int_a^x f(t)dt": "f(x)",
     "\\textrm{Average value of } f(x)": "\\frac{1}{b - a} \\int_a^b f(x)dx",
-    "F(x) + c": "\\int f(x)dx",
-    "\\int x^{-1} dx": "\\ln|x|"
+    "F(x) + C": "\\int f(x)dx",
+    "\\int x^{-1} dx": "\\ln|x| + C"
 }
 
 /*
